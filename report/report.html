@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="vue.js"></script>
+    <script src="Chart.min.js"></script>
+    <script src="vue-chartjs.min.js"></script>
+    <script src="data.js"></script>
+</head>
+<body>
+    <div id="app">
+        <transition name="fade">
+            <div class="main fade-item" v-show="player">
+                <div class="player">
+                    <div class="progress-bars">
+                        <div class="progress-bar" v-for="(interval, index) in intervals" @click="playInterval(index)" :style="{width: (100 / intervals.length) + '%'}">
+                            <div class="progress" :style="{width: getProgress(index, position) + '%'}"></div>
+                        </div>
+                    </div>
+                    <div class="videos">
+                        <div class="video-wrapper" v-show="currIndex &lt; intervals.length"><div id="v-1"></div></div>
+                        <a class="replay" @click="playInterval(0)" v-show="currIndex &gt;= intervals.length"><?xml version="1.0" encoding="utf-8"?><svg x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve"><g id="Bounding_Boxes"><rect fill="none" width="24" height="24"/><rect fill="none" width="24" height="24"/><rect fill="none" width="24" height="24"/></g><g id="Outline"><g id="ui_x5F_spec_x5F_header"></g><path d="M12,5V1L7,6l5,5V7c3.31,0,6,2.69,6,6s-2.69,6-6,6s-6-2.69-6-6H4c0,4.42,3.58,8,8,8s8-3.58,8-8S16.42,5,12,5z"/></g></svg> Replay</a>
+                    </div>
+                </div>
+                <div class="charts">
+                    <density v-if="densityOptions" :chart-data="densityData" :options="densityOptions" width="680" height="300" style="width: 680px; height: 300px; display: inline-block;"></density>
+                    <emotions v-if="emotionOptions" :chart-data="emotionData" :options="emotionOptions" style="width: 300px; height: 300px; margin-left: 30px; display: inline-block;"></emotions>
+                    <density v-if="sumOptions" :chart-data="sumData" :options="sumOptions" width="1020" height="300" style="width: 1020px; height: 300px; display: inline-block;"></density>
+                </div>
+            </div>
+        </transition>
+    </div>
+    <script src="report.js"></script>
+</body>
+</html>
